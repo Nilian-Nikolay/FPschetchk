@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,27 +45,46 @@
         button:hover {
             background-color: #0056b3;
         }
+
+        #startInput {
+            padding: 8px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            width: 150px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <h1>Счётчик +1</h1>
+    <input type="number" id="startInput" placeholder="Начать с числа" />
     <div id="output">Single MOM k 06.12</div>
     <button id="incrementButton">Увеличить</button>
 
     <script>
-        // Изначальная строка
-        let baseString = "Single MOM k 06.12";
-        let counter = 1;
+        document.addEventListener('DOMContentLoaded', function() {
+            // Изначальная строка
+            let baseString = "Single MOM k 06.12";
+            let counter = 0;
 
-        // Получение элементов HTML
-        const outputDiv = document.getElementById('output');
-        const button = document.getElementById('incrementButton');
+            // Получение элементов HTML
+            const outputDiv = document.getElementById('output');
+            const button = document.getElementById('incrementButton');
+            const startInput = document.getElementById('startInput');
 
-        // Функция для обновления строки
-        button.addEventListener('click', () => {
-            const formattedCounter = counter.toString().padStart(2, '0');
-            outputDiv.textContent = `${baseString} ${formattedCounter}`;
-            counter++;
+            // Функция для обновления строки
+            button.addEventListener('click', function() {
+                // Если стартовое число задано, начинаем с него
+                if (startInput.value && counter === 0) {
+                    counter = parseInt(startInput.value, 10);
+                    startInput.disabled = true;  // Отключаем поле ввода после первого клика
+                }
+
+                // Форматируем счётчик с двумя цифрами
+                const formattedCounter = counter.toString().padStart(2, '0');
+                outputDiv.textContent = `${baseString} ${formattedCounter}`;
+                counter++;
+            });
         });
     </script>
 </body>
